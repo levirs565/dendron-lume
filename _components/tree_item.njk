@@ -1,0 +1,20 @@
+{% set selected = "data-[selected=true]" %}
+<li {{li_args | safe}}>
+  <div
+    class="
+      group -ml-px pl-3 flex
+      border-l border-transparent hover:border-slate-400 {{ selected }}:border-green-500
+      text-slate-700 hover:text-slate-900 {{ selected }}:text-green-500
+      {{ selected }}:font-semibold
+    "
+  >
+    {{ before_link | safe }}
+    <a class="py-1 text-sm" href="{{ href }}">{{ title }}</a>
+  </div>
+
+  {% if content | trim %}
+  <div class="pl-3 {{ children_class }}">
+    {{ content | safe }}
+  </div>
+  {% endif %}
+</li>

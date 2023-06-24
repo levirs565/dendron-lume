@@ -17,7 +17,7 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       element.scrollIntoView();
     }, 0);
-    element.children[0].setAttribute("data-selected", "true");
+    setTreeItemSelected(element, true);
     let parent = element;
     while (!parent.hasAttribute("data-tree-root")) {
       parent = parent.parentElement;
@@ -43,10 +43,10 @@ window.addEventListener("DOMContentLoaded", () => {
     if (header === lastActiveHeader) return;
 
     for (const toc of headerTocMap.values()) {
-      toc.setAttribute("data-selected", "false");
+      setTreeItemSelected(toc, false);
     }
 
-    headerTocMap.get(header).setAttribute("data-selected", "true");
+    setTreeItemSelected(headerTocMap.get(header), true);
     lastActiveHeader = header;
   }
 
@@ -103,4 +103,8 @@ window.addEventListener("DOMContentLoaded", () => {
 function setTreeItemExpand(item, expanded) {
   item.setAttribute("aria-expanded", String(expanded));
   for (const child of item.children) child.setAttribute("data-expanded", String(expanded));
+}
+
+function setTreeItemSelected(item, selected) {
+  item.children[0].setAttribute("data-selected", String(selected));
 }

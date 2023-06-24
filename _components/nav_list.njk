@@ -1,50 +1,45 @@
-{% set selected = "data-[selected=true]" %}
-<ul
-    class="ml-3 border-l border-slate-200"
->
+{% comp "tree_list" %}
     {% for item in items %}
         {% set has_item = item.data.subnotes | length > 0 %}
-        <li 
+        {% set args %}
             data-tree-item 
             data-item-id="{{ item.data.id }}"     
             {% if has_item %}
                 aria-expanded="false"
             {% endif %}
-        >
-            <div class="
-                group -ml-px pl-3 flex
-                border-l border-transparent hover:border-slate-400 {{selected}}:border-green-500
-                text-slate-700 hover:text-slate-900 {{selected}}:text-green-500
-                {{selected}}:font-semibold
-            ">
-                {% if has_item %}
-                    <div data-chevron class="
-                        flex-grow-0 flex-shrink-0 
-                        flex items-center justify-center
-                        basis-6 
-                        hover:bg-gray-100 active:bg-gray-200 
-                        cursor-pointer
-                    ">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="
-                            w-4 h-4 transition-transform
-                            group-data-[expanded=true]:rotate-90
-                        " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                        </svg>
-                    </div>
-                {% endif %}
-                <a class="py-1 text-sm" href="{{item.data.url}}">{{item.data.title}}</a>
-            </div>
+        {% endset %}
+        {% set before_link %}
+            {% if has_item %}
+                <div data-chevron class="
+                    flex-grow-0 flex-shrink-0 
+                    flex items-center justify-center
+                    basis-6 
+                    hover:bg-gray-100 active:bg-gray-200 
+                    cursor-pointer
+                ">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="
+                        w-4 h-4 transition-transform
+                        group-data-[expanded=true]:rotate-90
+                    " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
+            {% endif %}
+        {% endset %}
 
-            <div class="pl-3 hidden data-[expanded=true]:block">
-                {% if has_item %}
-                    {% set children = []%}
-                    {% for id in item.data.subnotes %}
-                        {{ children.push(search.page("id=" + id)) | reject }}
-                    {% endfor %}
-                    {{ comp.nav_list({ items: children, nested: true }) | safe }}
-                {% endif %}
-            </div>
-        </li>
+        {% comp "tree_item", 
+            li_args=args, 
+            before_link=before_link,
+            children_class="hidden data-[expanded=true]:block",
+            href=item.data.url,
+            title=item.data.title %}
+            {% if has_item %}
+                {% set children = [] %}
+                {% for id in item.data.subnotes %}
+                    {{ children.push(search.page("id=" + id)) | reject }}
+                {% endfor %}
+                {{ comp.nav_list({ items: children}) | safe }} 
+            {% endif %}
+        {% endcomp %} 
     {% endfor %}
-</ul>
+{% endcomp %}
