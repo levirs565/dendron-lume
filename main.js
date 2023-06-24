@@ -50,10 +50,6 @@ window.addEventListener("DOMContentLoaded", () => {
     lastActiveHeader = header;
   }
 
-  function getHeaderLevel(header) {
-    return parseInt(header.tagName.slice(1));
-  }
-
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {

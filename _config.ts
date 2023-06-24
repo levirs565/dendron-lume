@@ -14,17 +14,17 @@ const site = lume(
     markdown: {
       keepDefaultPlugins: true,
       plugins: [
-        [
-          markdownItAsciiMath,
-          {
-            block: ["am"],
-            inline: {
-              open: "`$",
-              close: "$`",
-            },
-            enableOriginalKatex: true,
-          },
-        ],
+        // [
+        //   markdownItAsciiMath,
+        //   {
+        //     block: ["am"],
+        //     inline: {
+        //       open: "`$",
+        //       close: "$`",
+        //     },
+        //     enableOriginalKatex: true,
+        //   },
+        // ],
       ],
     },
   }
