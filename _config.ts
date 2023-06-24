@@ -8,24 +8,27 @@ import toc from "https://deno.land/x/lume_markdown_plugins@v0.5.0/toc.ts";
 import * as tocAnchor from "https://deno.land/x/lume_markdown_plugins@v0.5.0/toc/anchors.ts";
 import minifyHTML from "lume/plugins/minify_html.ts";
 
+const markdownPlugins = [];
+
+if (Deno.env.get("DENDRON_DISABLE_KATEX") !== "true")
+  markdownPlugins.push([
+    markdownItAsciiMath,
+    {
+      block: ["am"],
+      inline: {
+        open: "`$",
+        close: "$`",
+      },
+      enableOriginalKatex: true,
+    },
+  ]);
+
 const site = lume(
   {},
   {
     markdown: {
       keepDefaultPlugins: true,
-      plugins: [
-        // [
-        //   markdownItAsciiMath,
-        //   {
-        //     block: ["am"],
-        //     inline: {
-        //       open: "`$",
-        //       close: "$`",
-        //     },
-        //     enableOriginalKatex: true,
-        //   },
-        // ],
-      ],
+      plugins: markdownPlugins,
     },
   }
 );
