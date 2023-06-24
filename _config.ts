@@ -41,6 +41,7 @@ site.use(
 site.copy("assets", "assets");
 site.use(
   tailwindcss({
+    extensions: [".html", ".js"],
     options: {
       theme: {
         extend: {

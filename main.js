@@ -73,24 +73,30 @@ window.addEventListener("DOMContentLoaded", () => {
   );
   for (const header of headerTocMap.keys()) observer.observe(header);
 
-  const toc = document.getElementById("toc");
-  const tocBackdrop = document.getElementById("tocBackdrop");
+  const tocModal = {
+    container: document.getElementById("toc"),
+    backdrop: document.getElementById("tocBackdrop"),
+    extra: "xl:overflow-y-visible",
+  };
   document.getElementById("tocToggler").addEventListener("click", () => {
-    setModalOpen(toc, tocBackdrop, toc.dataset.open !== "true");
+    setModalOpen(tocModal, tocModal.container.dataset.open !== "true");
   });
 
   document.getElementById("tocClose").addEventListener("click", () => {
-    setModalOpen(toc, tocBackdrop, false);
+    setModalOpen(tocModal, false);
   });
 
-  const nav = document.getElementById("navbar");
-  const navBackdrop = document.getElementById("navbarBackdrop");
+  const navModal = {
+    container: document.getElementById("navbar"),
+    backdrop: document.getElementById("navbarBackdrop"),
+    extra: "lg:overflow-y-visible",
+  };
   document.getElementById("navToggler").addEventListener("click", () => {
-    setModalOpen(nav, navBackdrop, nav.dataset.open !== "true");
+    setModalOpen(navModal, navModal.container.dataset.open !== "true");
   });
 
   document.getElementById("navClose").addEventListener("click", () => {
-    setModalOpen(nav, navBackdrop, false);
+    setModalOpen(navModal, false);
   });
 });
 
@@ -103,7 +109,9 @@ function setTreeItemSelected(item, selected) {
   item.children[0].setAttribute("data-selected", String(selected));
 }
 
-function setModalOpen(modal, backdrop, state) {
-  modal.dataset.open = state;
-  backdrop.dataset.open = state;
+function setModalOpen(modal, state) {
+  modal.container.dataset.open = state;
+  modal.backdrop.dataset.open = state;
+  document.body.classList.toggle("overflow-y-hidden", state);
+  document.body.classList.toggle(modal.extra, state);
 }
