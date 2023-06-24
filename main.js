@@ -76,27 +76,21 @@ window.addEventListener("DOMContentLoaded", () => {
   const toc = document.getElementById("toc");
   const tocBackdrop = document.getElementById("tocBackdrop");
   document.getElementById("tocToggler").addEventListener("click", () => {
-    const isOpen = toc.dataset.open !== "true";
-    toc.dataset.open = isOpen;
-    tocBackdrop.dataset.open = isOpen;
+    setModalOpen(toc, tocBackdrop, toc.dataset.open !== "true");
   });
 
   document.getElementById("tocClose").addEventListener("click", () => {
-    toc.dataset.open = false;
-    tocBackdrop.dataset.open = false;
+    setModalOpen(toc, tocBackdrop, false);
   });
 
   const nav = document.getElementById("navbar");
   const navBackdrop = document.getElementById("navbarBackdrop");
   document.getElementById("navToggler").addEventListener("click", () => {
-    const isOpen = nav.dataset.open !== "true";
-    nav.dataset.open = isOpen;
-    navBackdrop.dataset.open = isOpen;
+    setModalOpen(nav, navBackdrop, nav.dataset.open !== "true");
   });
 
   document.getElementById("navClose").addEventListener("click", () => {
-    nav.dataset.open = false;
-    navBackdrop.dataset.open = false;
+    setModalOpen(nav, navBackdrop, false);
   });
 });
 
@@ -107,4 +101,9 @@ function setTreeItemExpand(item, expanded) {
 
 function setTreeItemSelected(item, selected) {
   item.children[0].setAttribute("data-selected", String(selected));
+}
+
+function setModalOpen(modal, backdrop, state) {
+  modal.dataset.open = state;
+  backdrop.dataset.open = state;
 }
