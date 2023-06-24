@@ -1,0 +1,23 @@
+{% set selected = "data-[selected=true]" %}
+<ul
+        class="ml-3 border-l border-slate-200"
+>
+    {% for item in items %}
+        <li>
+            <div data-toc-item data-toc-id="{{item.slug}}" class="
+                -ml-px pl-3
+                border-l border-transparent hover:border-slate-400 {{selected}}:border-green-500
+                text-slate-700 hover:text-slate-900 {{selected}}:text-green-500
+                {{selected}}:font-semibold
+            ">
+                <a class="py-1 text-sm" href="#{{item.slug}}">{{item.text}}</a>
+            </div>
+
+            <div class="pl-3">
+                {% if item.children.length > 0 %}
+                    {{ comp.toc_list({ items: item.children, nested: true }) | safe }}
+                {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+</ul>

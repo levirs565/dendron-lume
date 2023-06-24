@@ -1,0 +1,48 @@
+{% set has_item = page.data.subnotes | length > 0 %}
+<li data-tree-item data-item-id="{{ page.data.id }}"
+    {% if has_item %}
+        aria-expanded="false"
+    {% endif %}
+    >
+    {% if nested %}
+        {% set padding = 3 %}
+    {% else %}
+        {% set padding = 0 %}
+    {% endif %}
+    {% set selected = "data-[selected=true]" %}
+    <div class="
+        flex items-stretch group 
+        -ml-px pl-{{padding}}
+        border-l border-transparent hover:border-slate-400 {{selected}}:border-green-500
+        text-slate-700 {{selected}}:text-green-500 hover:text-slate-900
+        {{selected}}:font-semibold
+    " > 
+        {% if has_item %}
+            <div data-chevron class="
+                flex-grow-0 flex-shrink-0 
+                flex items-center justify-center
+                basis-6 
+                hover:bg-gray-100 active:bg-gray-200 
+                cursor-pointer
+            ">
+                <svg xmlns="http://www.w3.org/2000/svg" class="
+                    w-4 h-4 transition-transform
+                    group-data-[expanded=true]:rotate-90
+                " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </div>
+        {% endif %}
+        <a class="py-1 px-2 pl-0 flex-grow align-middle text-sm" href="{{ page.data.url }}">{{ page.data.title }}</a>
+    </div>
+    {% if has_item %}
+        <ul class="
+            ml-{{ padding + 3 }} hidden data-[expanded=true]:block 
+            border-slate-200 border-l transition-[height]
+        ">
+            {% for child in page.data.subnotes %}
+                {{ comp.navitem({ page: search.page("id=" + child), nested: true }) | safe }}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</li>

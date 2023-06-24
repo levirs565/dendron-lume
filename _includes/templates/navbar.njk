@@ -1,0 +1,7 @@
+{{ comp.backdrop({ id: "navbarBackdrop", extra: "lg:!hidden" }) | safe }}
+<nav id="navbar" class="w-78 top-0 lg:top-12 left-[-100%] lg:left-0 bottom-0 fixed z-50 bg-white data-[open=true]:left-0 transition-[left] flex flex-col">
+    {{ comp.mobile_close({ id: "navClose", extra: "lg:hidden" }) | safe }}
+    <ul data-tree-root class="p-4 overflow-y-scroll flex-grow">
+        {{ comp.navitem({page: search.page("url=/")}) | safe }}
+    </ul>
+</nav>
