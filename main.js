@@ -76,7 +76,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const tocModal = {
     container: document.getElementById("toc"),
     backdrop: document.getElementById("tocBackdrop"),
-    extra: "xl:overflow-y-visible",
+    name: "toc",
   };
   document.getElementById("tocToggler").addEventListener("click", () => {
     setModalOpen(tocModal, tocModal.container.dataset.open !== "true");
@@ -89,7 +89,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const navModal = {
     container: document.getElementById("navbar"),
     backdrop: document.getElementById("navbarBackdrop"),
-    extra: "lg:overflow-y-visible",
+    name: "nav",
   };
   document.getElementById("navToggler").addEventListener("click", () => {
     setModalOpen(navModal, navModal.container.dataset.open !== "true");
@@ -112,6 +112,10 @@ function setTreeItemSelected(item, selected) {
 function setModalOpen(modal, state) {
   modal.container.dataset.open = state;
   modal.backdrop.dataset.open = state;
-  document.body.classList.toggle("overflow-y-hidden", state);
-  document.body.classList.toggle(modal.extra, state);
+  const listenr = () => {
+    document.body.dataset.modal = state;
+    document.body.dataset.modalName = state ? modal.name : null;
+    modal.container.removeEventListener("transitionend", listenr);
+  };
+  modal.container.addEventListener("transitionend", listenr);
 }

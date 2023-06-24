@@ -1,26 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.css">
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <script>
-        window.noteId = "{{id}}"
+      window.noteId = "{{id}}";
     </script>
     <script src="/main.js"></script>
-</head>
-<body>
-    {% include "templates/appbar.njk" %}
-    {% include "templates/navbar.njk" %}
+  </head>
+  <body
+    class="
+        data-[modal=true]:overflow-hidden 
+        data-[modal-name=nav]:lg:overflow-scroll
+        data-[modal-name=toc]:xl:overflow-scroll
+    "
+  >
+    {% include "templates/appbar.njk" %} {% include "templates/navbar.njk" %}
     <div class="mt-12 lg:ml-78 xl:mr-78 py-4 px-8">
-        <div class="prose md:max-w-none prose-headings:scroll-mt-16 mx-auto">
-            <h1>{{ title }}</h1>
-            {{ content | safe }}
-        </div>
+      <div class="prose md:max-w-none prose-headings:scroll-mt-16 mx-auto">
+        <h1>{{ title }}</h1>
+        {{ content | safe }}
+      </div>
     </div>
     {% include "templates/toc.njk" %}
-</body>
+  </body>
 </html>

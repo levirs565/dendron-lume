@@ -1,9 +1,14 @@
-{{ comp.backdrop({ id: "tocBackdrop", extra: "xl:!hidden"  }) | safe }}
-<div id="toc" class="fixed z-50 w-78 right-[-100%] xl:right-0 top-0 xl:top-12 bottom-0 bg-white data-[open=true]:right-0 transition-[right] flex flex-col">
-    {{ comp.mobile_close({ id: "tocClose", extra: "xl:hidden" }) | safe }}
-    <div class="p-4 overflow-y-auto">
-        <p class="text-sm font-semibold mb-4 uppercase">On this page</p>
-        <p class="text-sm text-slate-700 hover:text-slate-900"><a href="#">{{ title }}</a></p>
-        {{ comp.toc_list({ items: toc }) | safe }}
-    </div>
+{{ comp.backdrop({ id: "tocBackdrop", extra: "xl:!hidden" }) | safe }}
+<div
+  id="toc"
+  class="fixed z-50 w-78 right-0 top-0 xl:top-12 bottom-0 bg-white translate-x-full xl:translate-x-0 data-[open=true]:translate-x-0 transition-transform flex flex-col"
+>
+  {{ comp.mobile_close({ id: "tocClose", extra: "xl:hidden" }) | safe }}
+  <div class="p-4 overflow-y-auto">
+    <p class="text-sm font-semibold mb-4 uppercase">On this page</p>
+    <p class="text-sm text-slate-700 hover:text-slate-900">
+      <a href="#">{{ title }}</a>
+    </p>
+    {{ comp.toc_list({ items: toc }) | safe }}
+  </div>
 </div>
