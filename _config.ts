@@ -7,6 +7,7 @@ import markdownItAsciiMath from "npm:@widcardw/markdown-it-asciimath@0.5.5";
 import toc from "https://deno.land/x/lume_markdown_plugins@v0.5.0/toc.ts";
 import * as tocAnchor from "https://deno.land/x/lume_markdown_plugins@v0.5.0/toc/anchors.ts";
 import metas from "lume/plugins/metas.ts";
+import sitemap from "lume/plugins/sitemap.ts";
 // minifyHTML make html broken some time,
 // probably because of katex
 // import minifyHTML from "lume/plugins/minify_html.ts";
@@ -27,7 +28,9 @@ if (Deno.env.get("DENDRON_DISABLE_KATEX") !== "true")
   ]);
 
 const site = lume(
-  {},
+  {
+    location: new URL("https://notes.levirs.my.id"),
+  },
   {
     markdown: {
       keepDefaultPlugins: true,
@@ -63,6 +66,7 @@ site.use(
 site.use(postcss());
 site.use(esbuild());
 site.use(metas());
+site.use(sitemap());
 // site.use(minifyHTML());
 
 export default site;
