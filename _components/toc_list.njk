@@ -5,7 +5,7 @@
         {% endset %}
 
         {% comp "tree_item", 
-            li_args=args, 
+            args=args, 
             href=["#", item.slug] | join, 
             title=item.text %}
             {% if item.children | length > 0 %}
