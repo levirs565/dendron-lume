@@ -1,19 +1,35 @@
-{% set selected = "data-[selected=true]" %}
-<li {{li_args | safe}}>
+---
+css: |
+  .tree_item > * {
+    @apply pl-3;
+  }
+  .tree_item--self {
+    @apply -ml-px flex;
+    @apply border-l border-transparent;
+    @apply text-slate-700;
+  }
+  .tree_item--self:hover {
+    @apply border-slate-400;
+    @apply text-slate-900;
+  }
+  .tree_item--self[data-selected=true] {
+    @apply border-green-500 text-green-500 font-semibold;
+  }
+  .tree_item--link {
+    @apply py-1 text-sm flex-grow;
+  }
+---
+{% set class = "tree_item" %}
+<li {{li_args | safe}} class="{{class}} {{extra_class}}">
   <div
-    class="
-      group -ml-px pl-3 flex
-      border-l border-transparent hover:border-slate-400 {{ selected }}:border-green-500
-      text-slate-700 hover:text-slate-900 {{ selected }}:text-green-500
-      {{ selected }}:font-semibold
-    "
+    class="{{class}}--self group"
   >
     {{ before_link | safe }}
-    <a class="py-1 text-sm flex-grow" href="{{ href }}">{{ title }}</a>
+    <a class="tree_item--link" href="{{ href }}">{{ title }}</a>
   </div>
 
   {% if content | trim %}
-  <div class="pl-3 {{ children_class }}">
+  <div class="{{class}}--children">
     {{ content | safe }}
   </div>
   {% endif %}

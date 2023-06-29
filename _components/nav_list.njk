@@ -1,3 +1,31 @@
+---
+css: |
+  .nav_list--chevron {
+    @apply flex-grow-0 flex-shrink-0 basis-6;
+    @apply flex items-center justify-center;
+    @apply cursor-pointer;
+  }
+  .nav_list--chevron:hover {
+    @apply bg-gray-100;
+  }
+  .nav_list--chevron:active {
+    @apply bg-gray-200;
+  }
+  .nav_list--chevron::before {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' /%3E%3C/svg%3E%0A");
+    @apply w-4 h-4 transition-transform;
+  }
+  .nav_list[aria-expanded=true] > .tree_item--self > .nav_list--chevron::before {
+    @apply rotate-90;
+  }
+  .nav_list > .tree_item--children {
+    @apply hidden;
+  }
+  .nav_list[aria-expanded=true] > .tree_item--children {
+    @apply block;
+  }
+---
 {% comp "tree_list" %}
     {% for item in items %}
         {% set has_item = item.data.subnotes | length > 0 %}
@@ -10,27 +38,15 @@
         {% endset %}
         {% set before_link %}
             {% if has_item %}
-                <div data-chevron class="
-                    flex-grow-0 flex-shrink-0 
-                    flex items-center justify-center
-                    basis-6 
-                    hover:bg-gray-100 active:bg-gray-200 
-                    cursor-pointer
-                ">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="
-                        w-4 h-4 transition-transform
-                        group-data-[expanded=true]:rotate-90
-                    " fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                </div>
+                <button data-chevron class="nav_list--chevron">
+                </button>
             {% endif %}
         {% endset %}
 
         {% comp "tree_item", 
             li_args=args, 
             before_link=before_link,
-            children_class="hidden data-[expanded=true]:block",
+            extra_class="nav_list",
             href=item.data.url,
             title=item.data.title %}
             {% if has_item %}
