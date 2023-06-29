@@ -1,8 +1,8 @@
 {% comp "tree_list" %}
     {% for item in items %}
-        {% set args %}
+        {%- set args -%}
             data-toc-item data-toc-id="{{item.slug}}"
-        {% endset %}
+        {%- endset -%}
 
         {% comp "tree_item", 
             args=args, 

@@ -19,7 +19,7 @@ css: |
     @apply py-1 text-sm flex-grow;
   }
 ---
-{% set class = "tree_item" %}
+{%- set class = "tree_item" -%}
 <li {{args | safe}} class="{{class}} {{extra_class}}">
   <div
     class="{{class}}--self group"
@@ -28,9 +28,9 @@ css: |
     <a class="tree_item--link" href="{{ href }}">{{ title }}</a>
   </div>
 
-  {% if content | trim %}
+  {%- if content | trim -%}
   <div class="{{class}}--children">
     {{ content | safe }}
   </div>
-  {% endif %}
+  {%- endif -%}
 </li>

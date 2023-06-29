@@ -1,5 +1,5 @@
 {% comp "tree_list" %}
-  {% for item in items %}
+  {%- for item in items -%}
     {{ comp.nav_item({item: item}) | safe }} 
-  {% endfor %}
+  {%- endfor -%}
 {% endcomp %}
