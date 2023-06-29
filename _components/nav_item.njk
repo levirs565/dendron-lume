@@ -1,0 +1,57 @@
+---
+css: |
+  .nav_item--chevron {
+    @apply flex-grow-0 flex-shrink-0 basis-6;
+    @apply flex items-center justify-center;
+    @apply cursor-pointer;
+  }
+  .nav_item--chevron:hover {
+    @apply bg-gray-100;
+  }
+  .nav_item--chevron:active {
+    @apply bg-gray-200;
+  }
+  .nav_item--chevron::before {
+    content: "";
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='currentColor' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 4.5l7.5 7.5-7.5 7.5' /%3E%3C/svg%3E%0A");
+    @apply w-4 h-4 transition-transform;
+  }
+  .nav_item[aria-expanded=true] > .tree_item--self > .nav_item--chevron::before {
+    @apply rotate-90;
+  }
+  .nav_item > .tree_item--children {
+    @apply hidden;
+  }
+  .nav_item[aria-expanded=true] > .tree_item--children {
+    @apply block;
+  }
+---
+{% set has_item = item.data.subnotes | length > 0 %}
+{% set args %}
+    data-tree-item 
+    data-item-id="{{ item.data.id }}"     
+    {% if has_item %}
+        aria-expanded="false"
+    {% endif %}
+{% endset %}
+{% set before_link %}
+    {% if has_item %}
+        <button data-chevron class="nav_item--chevron">
+        </button>
+    {% endif %}
+{% endset %}
+
+{% comp "tree_item", 
+    li_args=args, 
+    before_link=before_link,
+    extra_class="nav_item",
+    href=item.data.url,
+    title=item.data.title %}
+    {% if has_item %}
+        {% set children = [] %}
+        {% for id in item.data.subnotes %}
+            {{ children.push(search.page("id=" + id)) | reject }}
+        {% endfor %}
+        {{ comp.nav_list({ items: children}) | safe }} 
+    {% endif %}
+{% endcomp %} 
