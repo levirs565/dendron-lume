@@ -1,4 +1,4 @@
-{% comp "tree_list" %}
+{% comp "tree_list", is_child=is_child %}
   {%- for item in items -%}
     {{ comp.nav_item({item: item}) | safe }} 
   {%- endfor -%}

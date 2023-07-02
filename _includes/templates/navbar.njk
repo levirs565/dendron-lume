@@ -4,7 +4,7 @@
     -translate-x-full lg:translate-x-0 data-[open=true]:translate-x-0
     transition-transform flex flex-col">
     {{ comp.mobile_close({ id: "navClose", extra: "lg:hidden", label: "close navigation bar" }) | safe }}
-    <nav class="p-4 -ml-6 flex-grow overflow-y-scroll" data-tree-root>
+    <nav class="p-4 flex-grow overflow-y-scroll" data-tree-root>
         {{ comp.nav_list({items: [search.page("url=/")]}) | safe }}
     </nav>
 </aside>

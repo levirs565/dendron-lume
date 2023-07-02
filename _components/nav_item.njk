@@ -25,31 +25,40 @@ css: |
   .nav_item[aria-expanded=true] > .tree_item--children {
     @apply block;
   }
+  .nav_item > .tree_item--children {
+    @apply ml-3;
+  }
+  .nav_item > .tree_item--self > a {
+    @apply pl-6;
+  }
+  .nav_item--collapsible > .tree_item--self > a {
+    @apply pl-0; 
+  }
 ---
+
 {%- set has_item = item.data.subnotes | length > 0 -%}
-{%- set args -%}
-    data-tree-item 
-    data-item-id="{{ item.data.id }}"     
-    {% if has_item %}
-        aria-expanded="false"
-    {% endif %}
+{%- set args -%} 
+  data-tree-item
+  data-item-id="{{ item.data.id }}" 
+  {% if has_item %} aria-expanded="false" {% endif %} 
 {%- endset -%}
-{%- set before_link -%}
-    {%- if has_item -%}
-        <button data-chevron class="nav_item--chevron"></button>
-    {%- endif -%}
-{%- endset -%}
+{%- set before_link -%} 
+  {%- if has_item -%}
+  <button data-chevron class="nav_item--chevron"></button>
+  {%- endif -%}
+{%- endset -%} 
+
 {%- comp "tree_item", 
-    args=args, 
-    before_link=before_link,
-    extra_class="nav_item",
-    href=item.data.url,
-    title=item.data.title -%}
-    {%- if has_item -%}
-        {%- set children = [] -%}
-        {%- for id in item.data.subnotes -%}
-            {{- children.push(search.page("id=" + id)) | reject -}}
-        {%- endfor -%}
-        {{ comp.nav_list({ items: children}) | safe }} 
-    {%- endif -%}
-{%- endcomp -%} 
+  args=args, 
+  before_link=before_link,
+  extra_class=["nav_item", "nav_item--collapsible" if has_item] | join(" "), 
+  href=item.data.url,
+  title=item.data.title -%} 
+  {%- if has_item -%}
+    {%- set children = [] -%} 
+    {%- for id in item.data.subnotes -%}
+      {{- children.push(search.page("id=" + id)) | reject -}}
+    {%- endfor -%}
+    {{ comp.nav_list({ items: children, is_child: true }) | safe }}
+  {%- endif -%} 
+{%- endcomp -%}

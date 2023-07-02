@@ -1,0 +1,22 @@
+---
+css: |
+  .toc_item > .tree_item--self {
+    @apply pl-3;
+  }
+  .toc_item > .tree_item--children {
+    @apply ml-6;
+  }
+---
+{%- set args -%}
+    data-toc-item data-toc-id="{{item.slug}}"
+{%- endset -%}
+
+{% comp "tree_item", 
+    args=args, 
+    extra_class="toc_item",
+    href=["#", item.slug] | join, 
+    title=item.text %}
+    {% if item.children | length > 0 %}
+        {{ comp.toc_list({ items: item.children, is_child: true }) | safe }}
+    {% endif %}
+{% endcomp %} 

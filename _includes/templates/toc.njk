@@ -11,6 +11,8 @@
     <p class="text-sm text-slate-700 hover:text-slate-900">
       <a href="#">{{ title }}</a>
     </p>
-    {{ comp.toc_list({ items: toc }) | safe }}
+    <div class="pl-3">
+      {{ comp.toc_list({ items: toc }) | safe }}
+    </div>
   </nav>
 </aside>

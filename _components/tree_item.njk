@@ -1,8 +1,5 @@
 ---
 css: |
-  .tree_item > * {
-    @apply pl-3;
-  }
   .tree_item--self {
     @apply -ml-px flex;
     @apply border-l border-transparent;
@@ -29,8 +26,6 @@ css: |
   </div>
 
   {%- if content | trim -%}
-  <div class="{{class}}--children">
-    {{ content | safe }}
-  </div>
+  {{ content | safe }}
   {%- endif -%}
 </li>
