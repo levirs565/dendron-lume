@@ -3,7 +3,7 @@
     w-78 fixed top-0 lg:top-12 left-0 bottom-0 z-50 bg-white 
     -translate-x-full lg:translate-x-0 data-[open=true]:translate-x-0
     transition-transform flex flex-col">
-    {{ comp.mobile_close({ id: "navClose", extra: "lg:hidden" }) | safe }}
+    {{ comp.mobile_close({ id: "navClose", extra: "lg:hidden", label: "close navigation bar" }) | safe }}
     <nav class="p-4 -ml-6 flex-grow overflow-y-scroll" data-tree-root>
         {{ comp.nav_list({items: [search.page("url=/")]}) | safe }}
     </nav>
