@@ -1,8 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
   configureNavTree();
-  configureTocScroll();
   configureNavModal();
   configureTocModal();
+  configureTocScroll();
 });
 
 function setTreeItemExpand(item, expanded) {
