@@ -7,11 +7,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
 function setTreeItemExpand(item, expanded) {
   item.setAttribute("aria-expanded", String(expanded));
-  for (const child of item.children) child.setAttribute("data-expanded", String(expanded));
 }
 
-function setTreeItemSelected(item, selected) {
-  item.children[0].setAttribute("data-selected", String(selected));
+function setTreeItemSelected(item, selected, nav = false) {
+  item.setAttribute("data-selected", String(selected));
+  const link = item.querySelector("a");
+  if (nav) {
+    item.setAttribute("aria-selected", String(selected));
+    link.setAttribute("aria-current", selected ? "page" : "false");
+  } else {
+    link.setAttribute("aria-current", String(selected));
+  }
 }
 
 function setModalOpen(modal, state) {
@@ -72,7 +78,7 @@ function configureNavTree() {
     setTimeout(() => {
       element.scrollIntoView();
     }, 0);
-    setTreeItemSelected(element, true);
+    setTreeItemSelected(element, true, true);
     let parent = element;
     while (!parent.hasAttribute("data-tree-root")) {
       parent = parent.parentElement;

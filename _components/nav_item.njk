@@ -38,13 +38,15 @@ css: |
 
 {%- set has_item = item.data.subnotes | length > 0 -%}
 {%- set args -%} 
+  role="treeitem"
   data-tree-item
   data-item-id="{{ item.data.id }}" 
   {% if has_item %} aria-expanded="false" {% endif %} 
+  aria-selected="false"
 {%- endset -%}
 {%- set before_link -%} 
   {%- if has_item -%}
-  <button data-chevron class="nav_item--chevron"></button>
+  <button aria-label="expand/collapse tree-item" data-chevron class="nav_item--chevron"></button>
   {%- endif -%}
 {%- endset -%} 
 

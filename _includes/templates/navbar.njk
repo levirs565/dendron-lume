@@ -5,6 +5,6 @@
     transition-transform flex flex-col">
     {{ comp.mobile_close({ id: "navClose", extra: "lg:hidden", label: "close navigation bar" }) | safe }}
     <nav class="p-4 flex-grow overflow-y-scroll" data-tree-root>
-        {{ comp.nav_list({items: [search.page("url=/")]}) | safe }}
+        {{ comp.nav_list({ items: [search.page("url=/")], label: metas.site }) | safe }}
     </nav>
 </aside>
