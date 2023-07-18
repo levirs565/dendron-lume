@@ -30,10 +30,10 @@
         <footer>
           <hr />
           {% if subnotes | length > 0 %}
-          <strong>Children</strong>
+          <strong>Halaman Anak</strong>
           {{ comp.related_links({ list: subnotes }) | safe }}
           {% endif %} {% if backlinks | length > 0 %}
-          <strong>Backlinks</strong>
+          <strong>Halaman yang Merujuk Halaman Ini</strong>
           {{ comp.related_links({ list: backlinks }) | safe }}
           {% endif %}
         </footer>
