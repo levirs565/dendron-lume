@@ -21,6 +21,7 @@
   >
     {% include "templates/appbar.njk" %} {% include "templates/navbar.njk" %}
     <main class="mt-12 lg:ml-78 xl:mr-78 py-4 px-8">
+      {% include "templates/breadcrumb.njk" %}
       <article class="prose md:max-w-none prose-headings:scroll-mt-16 mx-auto">
         <header>
           <h1>{{ title }}</h1>
