@@ -4,3 +4,4 @@ metas:
   lang: id
   generator: true
   title: "=title"
+  type: "article"
