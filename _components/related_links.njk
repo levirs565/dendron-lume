@@ -1,0 +1,7 @@
+<ol>
+  {% for item in list %} {% set page = search.page("id=" + item) %}
+  <li>
+    <a href="{{ page.data.url }}">{{ page.data.title }}</a>
+  </li>
+  {% endfor %}
+</ol>

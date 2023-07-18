@@ -27,6 +27,16 @@
           <h1>{{ title }}</h1>
         </header>
         {{ content | safe }}
+        <footer>
+          <hr />
+          {% if subnotes | length > 0 %}
+          <strong>Children</strong>
+          {{ comp.related_links({ list: subnotes }) | safe }}
+          {% endif %} {% if backlinks | length > 0 %}
+          <strong>Backlinks</strong>
+          {{ comp.related_links({ list: backlinks }) | safe }}
+          {% endif %}
+        </footer>
       </article>
     </main>
     {% include "templates/toc.njk" %}
