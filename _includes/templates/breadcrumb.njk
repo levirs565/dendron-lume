@@ -1,19 +1,24 @@
-{% set base_li_class = "text-sm" %}
-{% set base_a_class = "underline decoration-slate-400 hover:decoration-slate-600" %}
+{% set base_li_class = "text-sm" %} {% set base_a_class = "underline decoration-slate-400
+hover:decoration-slate-600" %}
 <nav class="mb-4" aria-label="breadcrumb">
-  <ul class="list-none flex flex-row flex-wrap">
+  <ul vocab="https://schema.org/" typeof="BreadcrumbList" class="list-none flex flex-row flex-wrap">
     {% for sup in supernotes %} {% set page = search.page("id=" + sup) %}
-    <li class="{{ base_li_class }}">
-      <a
-        class="text-slate-700 hover:text-slate-900 {{base_a_class}}"
-        href="{{ page.data.url }}"
-        >{{ page.data.title }}</a
-      >
-      <span class="mx-1">/</span>
-    </li>
+    {{
+      comp.breadcrumb_item({
+        url: page.data.url,
+        current: false,
+        title: page.data.title,
+        position: loop.index
+      }) | safe
+    }}
     {% endfor %}
-    <li class="{{ base_li_class }}" aria-current="page">
-      <a class="{{base_a_class}}" href="{{ url }}">{{ title }}</a>
-    </li>
+    {{
+      comp.breadcrumb_item({
+        url: url,
+        current: true,
+        title: title,
+        position: supernotes.length + 1
+      }) | safe
+    }}
   </ul>
 </nav>

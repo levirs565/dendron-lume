@@ -1,0 +1,37 @@
+---
+css: |
+  .breadcrumb_item {
+    @apply text-sm;
+  }
+
+  .breadcrumb_item + .breadcrumb_item::before {
+    @apply mx-1;
+    content: "/"
+  }
+
+  .breadcrumb_item--link {
+    @apply text-slate-700 hover:text-slate-900;
+    @apply underline decoration-slate-400 hover:decoration-slate-600;
+  }
+
+
+  .breadcrumb_item--link[aria-current="page"] {
+    @apply text-slate-900;
+  }
+---
+<li class="breadcrumb_item" property="itemListElement" typeof="ListItem">
+  <a
+    class="breadcrumb_item--link"
+    href="{{ url }}"
+    property="item"
+    typeof="WebPage"
+    {% if current %}
+    aria-current="page"
+    {% endif %}
+  >
+    <span property="name">
+      {{ title }}
+    </span>
+  </a>
+  <meta property="position" content="{{ position }}" />
+</li>
